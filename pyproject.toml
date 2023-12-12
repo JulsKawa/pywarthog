@@ -1,6 +1,6 @@
 [project]
 name = "pywarthog"
-version = "0.0.3"
+version = "0.0.7"
 authors = [
   { name="zzjulienr", email="tpypi@zzjulien.maskmy.id" },
 ]

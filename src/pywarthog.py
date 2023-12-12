@@ -16,6 +16,19 @@ class Warthog:
         result = requests.get(baseurl + f'/account/{address}/balance').content
         balance = json.loads(result)
         return balance["data"]["balance"]
+    
+    def get_mempool(self):
+        baseurl = self.url
+        result = requests.get(baseurl + '/transaction/mempool').content
+        mempool = json.loads(result)
+        return mempool["data"]
+    
+    def get_tx_lookup(self, txid):
+        result = requests.get(self.url + f'/transaction/lookup/{txid}').content
+        tx = json.loads(result)
+        return tx["data"]
+    
+    
               
 class Key(Warthog):
     def __init__(self, url):
@@ -64,6 +77,9 @@ class Transaction(Warthog):
     
     def send_wart(url, recipient : str , amount : int, pk : SigningKey):
         baseurl = url
+        
+        if amount < 0:
+            raise ValueError("amount must be positive")
         
         # send parameters
         nonceId = Transaction.get_nonceid() # 32 bit number, unique per pinHash and pinHeight
