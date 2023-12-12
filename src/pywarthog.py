@@ -78,7 +78,7 @@ class Transaction(Warthog):
     def send_wart(url, recipient : str , amount : int, pk : SigningKey):
         baseurl = url
         
-        if amount < 0:
+        if amount <= 0:
             raise ValueError("amount must be positive")
         
         # send parameters
@@ -102,7 +102,7 @@ class Transaction(Warthog):
         b'\x00\x00\x00'+\
         feeE8.to_bytes(8, byteorder='big')+\
         bytes.fromhex(toAddr)[0:20]+\
-        int(amountE8).to_bytes(8, byteorder='big')
+        struct.pack('d', amountE8)
         
         # create signature
         from pycoin.ecdsa.secp256k1 import secp256k1_generator
@@ -129,8 +129,7 @@ class Transaction(Warthog):
         "signature65": signature65.hex()
         }
         rep = requests.post(baseurl + "/transaction/add", json = postdata)
-        print(postdata)
-        rep.content
+        
         return rep.content
             
     
