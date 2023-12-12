@@ -1,7 +1,0 @@
-README.md
-setup.py
-pywarthog/src/pywarthog.py
-pywarthog/src/pywarthog.egg-info/PKG-INFO
-pywarthog/src/pywarthog.egg-info/SOURCES.txt
-pywarthog/src/pywarthog.egg-info/dependency_links.txt
-pywarthog/src/pywarthog.egg-info/top_level.txt
