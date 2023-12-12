@@ -86,7 +86,7 @@ class Transaction(Warthog):
         b'\x00\x00\x00'+\
         feeE8.to_bytes(8, byteorder='big')+\
         bytes.fromhex(toAddr)[0:20]+\
-        struct.pack('d', amountE8)
+        int(amountE8).to_bytes(8, byteorder='big')
         
         # create signature
         from pycoin.ecdsa.secp256k1 import secp256k1_generator
