@@ -10,6 +10,8 @@ Welcome to pywarthog's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+Check out the :doc:`usage` section for further information, including how to
+:ref:`install <installation>` the project.
 
 
 Indices and tables
@@ -18,3 +20,11 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
+
+Contents
+--------
+
+.. toctree::
+
+   usage
+
