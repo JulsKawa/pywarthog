@@ -31,6 +31,8 @@ class Warthog:
 
         Returns:
             array : array of transactions in mempool
+            
+        autofunction:: Warthog.get_mempool()
         """
         baseurl = self.url
         result = requests.get(baseurl + '/transaction/mempool').content
