@@ -1,2 +1,3 @@
 dist/
 secret_key.md
+build/
