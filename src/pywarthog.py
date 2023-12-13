@@ -11,19 +11,53 @@ class Warthog:
         self.url = url
         super().__init__()
         
-    def get_balance(self,address):
+    def get_balance(self,address : str):
+        """Returrn the balance of an address
+
+        Args:
+            address (str): _description_
+
+        Returns:
+            str : balance in WART like "5027.00000000"
+        """
+        
         baseurl = self.url
         result = requests.get(baseurl + f'/account/{address}/balance').content
         balance = json.loads(result)
         return balance["data"]["balance"]
     
     def get_mempool(self):
+        """Return the mempool
+
+        Returns:
+            array : array of transactions in mempool
+        """
         baseurl = self.url
         result = requests.get(baseurl + '/transaction/mempool').content
         mempool = json.loads(result)
         return mempool["data"]
     
-    def get_tx_lookup(self, txid):
+    def get_tx_lookup(self, txid: str):
+        """Transaction lookup by txid
+
+        Args:
+            txid (str): a tx id
+
+        Returns:
+            array : An array with transaction data
+                    {
+                    "transaction": {
+                    "amount": "3.00000000",
+                    "amountE8": 300000000,
+                    "blockHeight": 376696,
+                    "confirmations": 8,
+                    "timestamp": 1695472249,
+                    "toAddress": "848b08b803e95640f8cb30af1b3166701b152b98c2cd70ee",
+                    "txHash": "4b3bc48295742b71ff7c3b98ede5b652fafd16c67f0d2db6226e936a1cdbf0a5",
+                    "type": "Reward",
+                    "utc": "2023-09-23 12:30:49 UTC"
+                    }
+        """
         result = requests.get(self.url + f'/transaction/lookup/{txid}').content
         tx = json.loads(result)
         return tx["data"]
@@ -60,23 +94,53 @@ class Key(Warthog):
         return addr.hex()
     
 class Transaction(Warthog):
+    
     def get_pinhash():   
+        """Return the pinhash of the current chain head
+
+        Returns:
+            _type_: hash of the current chain head
+        """
         baseurl = "http://localhost:3000"
         head_raw = requests.get(baseurl+'/chain/head').content
         head = json.loads(head_raw)
         return head["data"]["pinHash"]
     
-    def get_pinheight():   
+    def get_pinheight():  
+        """Get the pinheight of the current chain head
+
+        Returns:
+            _type_: _description_
+        """
+         
         baseurl = "http://localhost:3000"
         head_raw = requests.get(baseurl+'/chain/head').content
         head = json.loads(head_raw)
         return head["data"]["pinHeight"]
         
     def get_nonceid():
+        """Return a random 32 bit number
+
+        Returns:
+            int : a Random 32 bit number
+        """
         return randint(0, 4294967295)  
     
-    def send_wart(url, recipient : str , amount : int, pk : SigningKey):
-        baseurl = url
+    def send_wart(recipient : str , amount : int, pk : SigningKey):
+        """Used to send WART
+
+        Args:
+            recipient (str): recipient address
+            amount (int): amount in WART
+            pk (SigningKey): A signing key
+
+        Raises:
+            ValueError: Avoid sending 0 transaction since it will be rejected by the node
+
+        Returns:
+            _type_: _description_
+        """
+        baseurl = "http://localhost:3000"
         
         if amount <= 0:
             raise ValueError("amount must be positive")
