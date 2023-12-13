@@ -1,8 +1,8 @@
 [project]
 name = "pywarthog"
-version = "0.1.1"
+version = "0.1.2"
 authors = [
-  { name="zzjulienr", email="tpypi@zzjulien.maskmy.id" },
+  { name="zzjulien", email="tpypi@zzjulien.maskmy.id" },
 ]
 description = "A Python library for the Warthog API"
 readme = "README.md"
@@ -15,8 +15,8 @@ classifiers = [
 
 
 [project.urls]
-Homepage = "https://github.com/zzjulienr/pywarthog"
-Issues = "https://github.com/zzjulienr/pywarthog/issues"
+Homepage = "https://github.com/zzjulien/pywarthog"
+Issues = "https://github.com/zzjulien/pywarthog/issues"
 
 [build-system]
 requires = ["hatchling"]
